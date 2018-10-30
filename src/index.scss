@@ -1,0 +1,13 @@
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~select2/src/scss/core.scss';
+
+#form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  select {
+    width: 100%;
+    max-width: 300px;
+  }
+}
