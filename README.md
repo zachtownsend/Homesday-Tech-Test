@@ -11,8 +11,8 @@
 ## Commands
 
 - `yarn start` - start the dev server
-- `yarn run build` - create build in `dist` folder
-- `yarn run lint` - run an ESLint check
-- `yarn run coverage` - run code coverage and generate report in the `coverage` folder
+- `yarn build` - create build in `dist` folder
+- `yarn lint` - run an ESLint check
+- `yarn coverage` - run code coverage and generate report in the `coverage` folder
 - `yarn test` - run all tests
-- `yarn run test:watch` - run all tests in watch mode
+- `yarn test:watch` - run all tests in watch mode
