@@ -9,30 +9,20 @@ $(document).ready(() => {
 	const colors = require('nice-color-palettes');
 
 	function* getColor() {
-		var groupIndex = 0;
-		var index = 0;
+		const yieldColors = [];
 
-		if (typeof colors[groupIndex] === undefined) {
-			groupIndex = 0;
+		colors.forEach((colorSet) => {
+			colorSet.forEach((color) => {
+				yieldColors.push(color);
+			});
+		});
+
+		for (var i = yieldColors.length - 1; i >= 0; i--) {
+			yield yieldColors[i];
 		}
-
-		if (typeof [groupIndex][index] === undefined) {
-			index = 0;
-			groupIndex++;
-		}
-
-		console.log(index, groupIndex);
-
-		yield colors[groupIndex][index++];
 	}
 
 	const colorGen = getColor();
-
-	for (var i = 50 - 1; i >= 0; i--) {
-		console.log(colorGen.next());
-	}
-
-	console.log(getColor().next());
 
 	$searchBox.select2({
 		ajax: {
@@ -91,9 +81,8 @@ $(document).ready(() => {
 				data.forEach((contributor) => {
 					labels.push(contributor.login);
 					chartData.push(contributor.contributions);
-					const c = getColor();
-					console.log(colorGen, colorGen.next());
-					barColors.push(c.next().value);
+					console.log(colorGen.next().value);
+					barColors.push(colorGen.next().value);
 				});
 				chart.data.labels = labels;
 				chart.data.datasets[0].data = chartData;
