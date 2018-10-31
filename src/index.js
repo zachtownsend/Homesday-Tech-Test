@@ -1,11 +1,28 @@
 import $ from 'jquery';
 import 'select2';
-// import 'bootstrap';
 import Chart from 'chart.js';
+import 'nice-color-palettes';
 import 'index.scss';
 
 $(document).ready(() => {
 	const $searchBox = $('#search-box');
+	const colors = require('nice-color-palettes');
+
+	function* getColor() {
+		const yieldColors = [];
+
+		colors.forEach((colorSet) => {
+			colorSet.forEach((color) => {
+				yieldColors.push(color);
+			});
+		});
+
+		for (var i = yieldColors.length - 1; i >= 0; i--) {
+			yield yieldColors[i];
+		}
+	}
+
+	const colorGen = getColor();
 
 	$searchBox.select2({
 		ajax: {
@@ -60,12 +77,16 @@ $(document).ready(() => {
 			.done((data) => {
 				const labels = [];
 				const chartData = [];
+				const barColors = [];
 				data.forEach((contributor) => {
 					labels.push(contributor.login);
 					chartData.push(contributor.contributions);
+					console.log(colorGen.next().value);
+					barColors.push(colorGen.next().value);
 				});
 				chart.data.labels = labels;
 				chart.data.datasets[0].data = chartData;
+				chart.data.datasets[0].backgroundColor = barColors;
 				chart.update();
 			});
 	};
