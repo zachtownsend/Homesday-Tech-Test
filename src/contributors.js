@@ -209,6 +209,7 @@ export default class Contributors {
 	 */
 	__bindEvents() {
 		this.$search.on('select2:selecting', (e) => {
+			e.preventDefault();
 			this.onRepoSelect(e.params.args.data.id);
 		});
 	}
