@@ -1,3 +1,9 @@
 {
-  "presets": ["env"] //automatically determine the Babel plugins and polyfills you need based on your supported environments.
+  "presets": ["env"], //automatically determine the Babel plugins and polyfills you need based on your supported environments.
+  "plugins": [
+    ["transform-runtime", {
+      "polyfill": false,
+      "regenerator": true
+    }]
+  ]
 }
