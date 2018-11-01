@@ -42,18 +42,18 @@ export default class Contributors {
 	 */
 	getEndpoint(name, term) {
 		if (_.isUndefined(term)) {
-			return false;
+			return '';
 		}
 
 		switch(name) {
 		case 'users':
-			return `https://api.github.com/users/${term}/repos`;
+			return encodeURI(`https://api.github.com/users/${term.replace(/[^\w]/g, '')}/repos`);
 
 		case 'contributors':
-			return `https://api.github.com/repos/${term}/contributors`;
+			return encodeURI(`https://api.github.com/repos/${term.replace(/[^\w]/g, '')}/contributors`);
 
 		default:
-			return false;
+			return '';
 		}
 	}
 
@@ -64,10 +64,12 @@ export default class Contributors {
 	initialiseSearch() {
 		if (this.$search.length) {
 			this.$search.select2({
+				minimumInputLength: 1,
 				ajax: {
 					url: (params) => {
 						return this.getEndpoint('users', params.term);
 					},
+					dataType: 'json',
 					data: this.authData(),
 					processResults: (data) => {
 						if (_.isArray(data)) {
@@ -81,7 +83,7 @@ export default class Contributors {
 							};
 						}
 
-						return false;
+						return [];
 					},
 				},
 			});
@@ -136,7 +138,7 @@ export default class Contributors {
 			};
 		}
 
-		return false;
+		return {};
 	}
 
 	/**
