@@ -47,10 +47,10 @@ export default class Contributors {
 
 		switch(name) {
 		case 'users':
-			return encodeURI(`https://api.github.com/users/${term.replace(/[^\w]/g, '')}/repos`);
+			return encodeURI(`https://api.github.com/users/${term}/repos`);
 
 		case 'contributors':
-			return encodeURI(`https://api.github.com/repos/${term.replace(/[^\w]/g, '')}/contributors`);
+			return encodeURI(`https://api.github.com/repos/${term}/contributors`);
 
 		default:
 			return '';
